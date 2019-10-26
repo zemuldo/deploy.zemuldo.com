@@ -10,7 +10,7 @@ services:
     env_file:
         - .env.ui
     container_name: ui
-    image: gcr.io/$GCP_PROJECT_ID/site-ui
+    image: zemuldo/site-ui
     labels:
     - com.centurylinklabs.watchtower.enable=true
 
