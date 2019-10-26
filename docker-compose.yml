@@ -1,18 +1,17 @@
 version: "3.7"
 services:
-
   site-ui:
     restart: always
     volumes:
-        - .:/app
+      - .:/app
     ports:
-        - "3000:3000"
+      - "3000:3000"
     env_file:
-        - .env.ui
+      - .env.ui
     container_name: ui
     image: zemuldo/site-ui
     labels:
-    - com.centurylinklabs.watchtower.enable=true
+      - com.centurylinklabs.watchtower.enable=true
 
   site-api:
     restart: always
@@ -23,20 +22,20 @@ services:
     env_file:
       - .env.api
     environment:
-    - DB_HOST=mongo
+      - DB_HOST=mongo
     container_name: api
     image: gcr.io/$GCP_PROJECT_ID/site-api
     labels:
       - com.centurylinklabs.watchtower.enable=true
     depends_on:
-          - mongo
+      - mongo
 
   mongo:
     container_name: mongo
     image: mongo:latest
     ports:
       - "27017:27017"
-    volumes: 
+    volumes:
       - ${MONGOD_DATA_PATH:-/var/lib/mongodb}:/data/db
 
     restart: always
@@ -44,7 +43,6 @@ services:
   watch-api:
     image: v2tec/watchtower
     volumes:
-        - /var/run/docker.sock:/var/run/docker.sock
-        - ~/.docker/config.json:/config.json
+      - /var/run/docker.sock:/var/run/docker.sock
+      - ~/.docker/config.json:/config.json
     restart: always
-
