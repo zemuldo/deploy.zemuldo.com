@@ -40,7 +40,7 @@ services:
 
     restart: always
 
-  watch:
+  watchtower:
     image: v2tec/watchtower
     command: --cleanup
     volumes:
