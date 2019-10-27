@@ -3,7 +3,7 @@ services:
   site-ui:
     restart: always
     volumes:
-      - .:/usr/src/app
+      - .:/app
     ports:
       - "3000:3000"
     env_file:
@@ -16,7 +16,7 @@ services:
   site-api:
     restart: always
     volumes:
-      - .:/usr/src/app
+      - .:/app
     ports:
       - "8090:8090"
     env_file:
