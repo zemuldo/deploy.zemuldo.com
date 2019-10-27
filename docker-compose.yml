@@ -3,7 +3,7 @@ services:
   site-ui:
     restart: always
     volumes:
-      - .:/app
+      - .:/usr/src/app
     ports:
       - "3000:3000"
     env_file:
@@ -16,7 +16,7 @@ services:
   site-api:
     restart: always
     volumes:
-      - .:/app
+      - .:/usr/src/app
     ports:
       - "8090:8090"
     env_file:
@@ -40,8 +40,9 @@ services:
 
     restart: always
 
-  watch-api:
+  watch:
     image: v2tec/watchtower
+    command: --cleanup true --label-enable true
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock
       - ~/.docker/config.json:/config.json
