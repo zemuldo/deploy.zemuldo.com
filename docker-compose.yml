@@ -24,7 +24,7 @@ services:
     environment:
       - DB_HOST=mongo
     container_name: api
-    image: gcr.io/$GCP_PROJECT_ID/site-api
+    image: zemuldo/site-api
     labels:
       - com.centurylinklabs.watchtower.enable=true
     depends_on:
