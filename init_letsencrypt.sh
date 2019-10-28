@@ -5,7 +5,7 @@ if ! [ -x "$(command -v docker-compose)" ]; then
   exit 1
 fi
 
-domains=(zemuldo.com)
+domains=(zemuldo.com api.zemuldo.com)
 rsa_key_size=4096
 data_path="./data/certbot"
 email="otis.eng.555@gmail.com" # Adding a valid address is strongly recommended
