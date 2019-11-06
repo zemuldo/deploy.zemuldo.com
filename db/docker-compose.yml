@@ -1,0 +1,19 @@
+version: "3.7"
+services:
+  mongo:
+    container_name: mongo
+    image: mongo:latest
+    ports:
+      - "27017:27017"
+    volumes:
+      - ${MONGOD_DATA_PATH:-/var/lib/mongodb}:/data/db
+
+    restart: always
+
+  watchtower:
+    image: v2tec/watchtower
+    command: --cleanup
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+      - ~/.docker/config.json:/config.json
+    restart: always
