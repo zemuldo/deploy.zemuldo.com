@@ -48,18 +48,6 @@ services:
     image: zemuldo/site-api
     labels:
       - com.centurylinklabs.watchtower.enable=true
-    depends_on:
-      - mongo
-
-  mongo:
-    container_name: mongo
-    image: mongo:latest
-    ports:
-      - "27017:27017"
-    volumes:
-      - ${MONGOD_DATA_PATH:-/var/lib/mongodb}:/data/db
-
-    restart: always
 
   watchtower:
     image: v2tec/watchtower
