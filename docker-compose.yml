@@ -43,7 +43,7 @@ services:
     env_file:
       - .env.api
     environment:
-      - DB_HOST=mongo
+      - NODE_ENV=production
     container_name: api
     image: zemuldo/site-api
     labels:
