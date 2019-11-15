@@ -1,26 +1,23 @@
 version: "3.7"
 services:
-  version: "2"
-services:
-  letsencrypt:
-    image: linuxserver/letsencrypt
-    container_name: letsencrypt
-    cap_add:
-      - NET_ADMIN
-    environment:
-      - PUID=1000
-      - PGID=1000
-      - TZ=Africa/Nairobi
-      - URL=zemuldo.com
-      - SUBDOMAINS=www,api
-      - VALIDATION=http
-      - EMAIL=otis.eng.555@gmail.com
-    volumes:
-      - ./data:/config
+  nginx:
+    image: nginx:alpine
     ports:
-      - 443:443
-      - 80:80
-    restart: unless-stopped
+      - "80:80"
+      - "443:443"
+    volumes:
+      - ./data/nginx:/etc/nginx/conf.d
+      - ./data/certbot/conf:/etc/letsencrypt
+      - ./data/certbot/www:/var/www/certbot
+    depends_on:
+      - site-ui
+      - site-api
+  certbot:
+    image: certbot/certbot
+    volumes:
+      - ./data/certbot/conf:/etc/letsencrypt
+      - ./data/certbot/www:/var/www/certbot
+    entrypoint: "/bin/sh -c 'trap exit TERM; while :; do certbot renew; sleep 12h & wait $${!}; done;'"
     depends_on:
       - site-ui
       - site-api
