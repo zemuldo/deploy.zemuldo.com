@@ -19,6 +19,7 @@ services:
       - ./data/nginx:/config
     ports:
       - 443:443
+      - 80:80
     restart: unless-stopped
     depends_on:
       - site-ui
