@@ -16,7 +16,7 @@ services:
       - VALIDATION=http
       - EMAIL=otis.eng.555@gmail.com
     volumes:
-      - ./data/nginx:/config
+      - ./data:/config
     ports:
       - 443:443
       - 80:80
