@@ -17,7 +17,7 @@ services:
       - STAGING=true
       - EMAIL=otis.eng.555@gmail.com
     volumes:
-      - ./nginx:/config/nginx/site-confs
+      - ./data:/config
     ports:
       - 443:443
       - 80:80
