@@ -14,7 +14,7 @@ services:
       - URL=zemuldo.com
       - SUBDOMAINS=www,api
       - VALIDATION=http
-      - STAGING=true
+      - STAGING=false
       - EMAIL=otis.eng.555@gmail.com
     volumes:
       - ./data:/config
