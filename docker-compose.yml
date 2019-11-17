@@ -30,7 +30,7 @@ services:
     volumes:
       - .:/app
     ports:
-      - "3000:3000"
+      - "127.0.0.1:3000:3000"
     env_file:
       - .env.ui
     container_name: ui
@@ -43,7 +43,7 @@ services:
     volumes:
       - .:/app
     ports:
-      - "8090:8090"
+      - "127.0.0.1:8090:8090"
     env_file:
       - .env.api
     environment:
