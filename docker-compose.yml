@@ -3,7 +3,7 @@ services:
   version: "2"
 services:
   letsencrypt:
-    image: linuxserver/letsencrypt
+    image: linuxserver/letsencrypt:0.40.1-ls75
     container_name: letsencrypt
     cap_add:
       - NET_ADMIN
