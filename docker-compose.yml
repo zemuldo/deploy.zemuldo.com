@@ -12,7 +12,7 @@ services:
       - PGID=1000
       - TZ=Africa/Nairobi
       - URL=zemuldo.com
-      - SUBDOMAINS=www,api
+      - SUBDOMAINS=www,api,cloud-nomad
       - VALIDATION=http
       - STAGING=false
       - EMAIL=otis.eng.555@gmail.com
