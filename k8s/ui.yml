@@ -1,0 +1,46 @@
+---
+
+apiVersion: v1
+kind: Service
+metadata:
+  name: site-ui
+spec:
+  type: LoadBalancer
+  ports:
+  - port: 3000
+    name: site
+    targetPort: 3000
+  selector:
+    app: site-ui
+---
+
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app: site-ui
+  name: site-ui
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: site-ui
+  template:
+    metadata:
+      labels:
+        app: site-ui
+    spec:
+      containers:
+      - image: zemuldo/site-ui:latest
+        name: site-ui
+        env:
+          - name: PORT
+            value: "3000"
+          - name: API_URL
+            value: "https://api.zemuldo.com"
+          - name: GA_TRACKING_ID
+            value: "UA-144262338-1"
+        ports:
+          - name: site-ui
+            containerPort: 3000
+---
