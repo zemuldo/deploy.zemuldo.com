@@ -22,9 +22,9 @@ services:
       - 443:443
       - 80:80
     restart: unless-stopped
-    depends_on:
-      - site-ui
-      - site-api
+    # depends_on:
+    #   - site-ui
+    #   - site-api
   # site-ui:
   #   restart: always
   #   volumes:
