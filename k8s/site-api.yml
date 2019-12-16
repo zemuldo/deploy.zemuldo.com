@@ -4,6 +4,7 @@ apiVersion: v1
 kind: Service
 metadata:
   name: site-api
+  namespace: z-site
 spec:
   type: LoadBalancer
   ports:
@@ -20,6 +21,7 @@ metadata:
   labels:
     app: site-api
   name: site-api
+  namespace: z-site
 spec:
   replicas: 1
   selector:
@@ -35,29 +37,65 @@ spec:
         name: site-api
         env:
           - name: NODE_ENV
-            value: "production"
+            valueFrom:
+              secretKeyRef:
+                name: site-api-secrets
+                key: NODE_ENV
           - name: BASE_URL
-            value: "https://api.zemuldo.com"
+            valueFrom:
+              secretKeyRef:
+                name: site-api-secrets
+                key: BASE_URL
           - name: FRONTEND_URL
-            value: "https://zemuldo.com"
+            valueFrom:
+              secretKeyRef:
+                name: site-api-secrets
+                key: FRONTEND_URL
           - name: PORT
-            value: "8090"
+            valueFrom:
+              secretKeyRef:
+                name: site-api-secrets
+                key: PORT
           - name: API_URL
-            value: "https://api.zemuldo.com"
+            valueFrom:
+              secretKeyRef:
+                name: site-api-secrets
+                key: API_URL
           - name: DB_HOST
-            value: "209.97.137.61"
+            valueFrom:
+              secretKeyRef:
+                name: site-api-secrets
+                key: DB_HOST
           - name: DATABASE
-            value: "zemuldo-site"
+            valueFrom:
+              secretKeyRef:
+                name: site-api-secrets
+                key: DATABASE
           - name: GITHUB_CLIENT_ID
-            value: "e6831840d043f12bfa06"
+            valueFrom:
+              secretKeyRef:
+                name: site-api-secrets
+                key: GITHUB_CLIENT_ID
           - name: GITHUB_CLIENT_SECRET
-            value: "8f12a6fbe61447b55209597756a30ad7f00fc6ed"
+            valueFrom:
+              secretKeyRef:
+                name: site-api-secrets
+                key: GITHUB_CLIENT_SECRET
           - name: JWT_KEY
-            value: "4d93652805b2c85dcc1ed6574ddd568f366f7205b2c64c1e5f"
+            valueFrom:
+              secretKeyRef:
+                name: site-api-secrets
+                key: JWT_KEY
           - name: MONGO_USER
-            value: "site_api"
+            valueFrom:
+              secretKeyRef:
+                name: site-api-secrets
+                key: MONGO_USER
           - name: MONGO_PASSWORD
-            value: "etGDx8GyF5x4CYsv4n+ef0rXMrXJZaHnfI1QCPZPwZEb7Qh"
+            valueFrom:
+              secretKeyRef:
+                name: site-api-secrets
+                key: MONGO_PASSWORD
         ports:
           - name: site-api
             containerPort: 8090

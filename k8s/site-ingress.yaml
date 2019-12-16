@@ -1,0 +1,25 @@
+apiVersion: networking.k8s.io/v1beta1
+kind: Ingress
+metadata:
+  name: site-ingress
+  namespace: z-site
+spec:
+  rules:
+  - host: zemuldo.com
+    http:
+      paths:
+      - backend:
+          serviceName: site-ui
+          servicePort: 3000
+  - host: www.zemuldo.com
+    http:
+      paths:
+      - backend:
+          serviceName: site-ui
+          servicePort: 3000
+  - host: api.zemuldo.com
+    http:
+      paths:
+      - backend:
+          serviceName: site-api
+          servicePort: 8090
