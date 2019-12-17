@@ -3,7 +3,17 @@ kind: Ingress
 metadata:
   name: site-ingress
   namespace: z-site
+  annotations:
+    kubernetes.io/ingress.class: "nginx"
+    cert-manager.io/cluster-issuer: "letsencrypt-prod"
+    nginx.ingress.kubernetes.io/force-ssl-redirect: "true"
 spec:
+  tls:
+  - hosts:
+    - zemuldo.com
+    - www.zemuldo.com
+    - api.zemuldo.com
+    secretName: site-tls
   rules:
   - host: zemuldo.com
     http:
