@@ -22,41 +22,41 @@ services:
       - 443:443
       - 80:80
     restart: unless-stopped
-    # depends_on:
-    #   - site-ui
-    #   - site-api
-  # site-ui:
-  #   restart: always
-  #   volumes:
-  #     - .:/app
-  #   ports:
-  #     - "127.0.0.1:3000:3000"
-  #   env_file:
-  #     - .env.ui
-  #   container_name: ui
-  #   image: zemuldo/site-ui
-  #   labels:
-  #     - com.centurylinklabs.watchtower.enable=true
+    depends_on:
+      - site-ui
+      - site-api
+  site-ui:
+    restart: always
+    volumes:
+      - .:/app
+    ports:
+      - "127.0.0.1:3000:3000"
+    env_file:
+      - .env.ui
+    container_name: ui
+    image: zemuldo/site-ui
+    labels:
+      - com.centurylinklabs.watchtower.enable=true
 
-  # site-api:
-  #   restart: always
-  #   volumes:
-  #     - .:/app
-  #   ports:
-  #     - "127.0.0.1:8090:8090"
-  #   env_file:
-  #     - .env.api
-  #   environment:
-  #     - NODE_ENV=production
-  #   container_name: api
-  #   image: zemuldo/site-api
-  #   labels:
-  #     - com.centurylinklabs.watchtower.enable=true
+  site-api:
+    restart: always
+    volumes:
+      - .:/app
+    ports:
+      - "127.0.0.1:8090:8090"
+    env_file:
+      - .env.api
+    environment:
+      - NODE_ENV=production
+    container_name: api
+    image: zemuldo/site-api
+    labels:
+      - com.centurylinklabs.watchtower.enable=true
 
-  # watchtower:
-  #   image: v2tec/watchtower
-  #   command: --cleanup
-  #   volumes:
-  #     - /var/run/docker.sock:/var/run/docker.sock
-  #     - ~/.docker/config.json:/config.json
-  #   restart: always
+  watchtower:
+    image: v2tec/watchtower
+    command: --cleanup
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+      - ~/.docker/config.json:/config.json
+    restart: always
