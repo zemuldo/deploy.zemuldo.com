@@ -42,9 +42,25 @@ spec:
                 name: site-secrets
                 key: UI_PORT
           - name: API_URL
-            value: "https://api.zemuldo.com"
+            valueFrom:
+              secretKeyRef:
+                name: site-secrets
+                key: API_URL
+          - name: UI_URL
+            valueFrom:
+              secretKeyRef:
+                name: site-secrets
+                key: UI_URL
+          - name: UI_URL_DOMAIN
+            valueFrom:
+              secretKeyRef:
+                name: site-secrets
+                key: UI_URL_DOMAIN
           - name: GA_TRACKING_ID
-            value: "UA-144262338-1"
+            valueFrom:
+              secretKeyRef:
+                name: site-secrets
+                key: GA_TRACKING_ID
         ports:
           - name: site-ui
             containerPort: 3000
