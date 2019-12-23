@@ -37,7 +37,10 @@ spec:
         name: site-ui
         env:
           - name: PORT
-            value: "3000"
+            valueFrom:
+              secretKeyRef:
+                name: site-secrets
+                key: UI_PORT
           - name: API_URL
             value: "https://api.zemuldo.com"
           - name: GA_TRACKING_ID
