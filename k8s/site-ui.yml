@@ -56,6 +56,11 @@ spec:
               secretKeyRef:
                 name: site-secrets
                 key: UI_URL_DOMAIN
+          - name: Z_SITE_IMAGES_URL
+            valueFrom:
+              secretKeyRef:
+                name: site-secrets
+                key: Z_SITE_IMAGES_URL
           - name: GA_TRACKING_ID
             valueFrom:
               secretKeyRef:
@@ -64,4 +69,12 @@ spec:
         ports:
           - name: site-ui
             containerPort: 3000
+        volumeMounts:
+          - name: z-site-images
+            mountPath: /usr/src/app/public/z-site-images
+      volumes:
+        - name: z-site-images
+          nfs:
+            server: 209.97.137.61
+            path: /mnt/z-site-images
 ---

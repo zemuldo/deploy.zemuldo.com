@@ -99,4 +99,12 @@ spec:
         ports:
           - name: site-api
             containerPort: 8090
+        volumeMounts:
+          - name: z-site-images
+            mountPath: /usr/src/app/express/public/z-site-images
+      volumes:
+        - name: z-site-images
+          nfs:
+            server: 209.97.137.61
+            path: /mnt/z-site-images
 ---
