@@ -18,12 +18,20 @@ spec:
   - host: zemuldo.com
     http:
       paths:
+      - path: /z-site-images
+        backend:
+          serviceName: site-api
+          servicePort: 8090
       - backend:
           serviceName: site-ui
           servicePort: 3000
   - host: www.zemuldo.com
     http:
       paths:
+      - path: /z-site-images
+        backend:
+          serviceName: site-api
+          servicePort: 8090
       - backend:
           serviceName: site-ui
           servicePort: 3000
