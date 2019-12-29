@@ -8,9 +8,24 @@ metadata:
 spec:
   type: LoadBalancer
   ports:
-  - port: 3000
-    name: site
-    targetPort: 3000
+  - port: 3001
+    name: z-site-ui
+    targetPort: 3001
+  selector:
+    app: site-ui
+---
+
+apiVersion: v1
+kind: Service
+metadata:
+  name: site-images
+  namespace: z-site
+spec:
+  type: LoadBalancer
+  ports:
+  - port: 3002
+    name: z-images-server
+    targetPort: 3002
   selector:
     app: site-ui
 ---
@@ -36,11 +51,21 @@ spec:
       - image: zemuldo/site-ui:latest
         name: site-ui
         env:
-          - name: PORT
+          - name: UI_PORT
             valueFrom:
               secretKeyRef:
                 name: site-secrets
                 key: UI_PORT
+          - name: IMAGE_SERVER_PORT
+            valueFrom:
+              secretKeyRef:
+                name: site-secrets
+                key: IMAGE_SERVER_PORT
+          - name: SITE_IMAGES_URL
+            valueFrom:
+              secretKeyRef:
+                name: site-secrets
+                key: SITE_IMAGES_URL
           - name: API_URL
             valueFrom:
               secretKeyRef:
@@ -56,11 +81,11 @@ spec:
               secretKeyRef:
                 name: site-secrets
                 key: UI_URL_DOMAIN
-          - name: Z_SITE_IMAGES_URL
+          - name: SITE_IMAGES_URL
             valueFrom:
               secretKeyRef:
                 name: site-secrets
-                key: Z_SITE_IMAGES_URL
+                key: SITE_IMAGES_URL
           - name: GA_TRACKING_ID
             valueFrom:
               secretKeyRef:
@@ -68,7 +93,9 @@ spec:
                 key: GA_TRACKING_ID
         ports:
           - name: site-ui
-            containerPort: 3000
+            containerPort: 3001
+          - name: z-images-site
+            containerPort: 3002
         volumeMounts:
           - name: z-site-images
             mountPath: /usr/src/app/public/z-site-images
