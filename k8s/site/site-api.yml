@@ -86,6 +86,11 @@ spec:
               secretKeyRef:
                 name: site-secrets
                 key: JWT_KEY
+          - name: MONGO_URI
+            valueFrom:
+              secretKeyRef:
+                name: site-secrets
+                key: MONGO_URI
           - name: MONGO_USER
             valueFrom:
               secretKeyRef:
