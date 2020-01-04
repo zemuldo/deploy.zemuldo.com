@@ -43,13 +43,13 @@ spec:
             - containerPort: 27017
           volumeMounts:
             - mountPath: /data/db
-              name: persistent-storage
+              name: mongo-persistent-storage
   volumeClaimTemplates:
   - metadata:
-      name: persistent-storage
+      name: mongo-persistent-storage
     spec:
       accessModes: [ "ReadWriteOnce" ]
-      storageClassName: "fast"
+      storageClassName: "longhorn"
       resources:
         requests:
           storage: 5Gi

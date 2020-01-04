@@ -3,7 +3,7 @@ kind: PersistentVolumeClaim
 metadata:
   name: mongo-backup-pvc
 spec:
-  storageClassName: fast
+  storageClassName: longhorn
   accessModes:
     - ReadWriteOnce
   resources:
@@ -16,7 +16,7 @@ kind: PersistentVolumeClaim
 metadata:
   name: mongo-secondary-backup-pvc
 spec:
-  storageClassName: fast
+  storageClassName: longhorn
   accessModes:
     - ReadWriteOnce
   resources:
