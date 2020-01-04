@@ -56,85 +56,42 @@ spec:
           storage: 5Gi
 ---
 
-
 apiVersion: v1
 kind: ReplicationController
 metadata:
   labels:
-    name: mongo-backup-primary
-  name: mongo-backup-primary
+    name: mongo-backup
+  name: mongo-backup
   namespace: z-site
 spec:
   replicas: 1
   template:
     metadata:
       labels:
-        name: mongo-backup-primary
+        name: mongo-backup
     spec:
       containers:
-      - image: tutum/mongodb-backup
-        name: mongodb-backup
+      - image: zemuldo/mongo-backup
+        name: mongo-backup
         ports:
         - name: mongo
           containerPort: 27017
           hostPort: 27017
         env:
+        - name: CRON_TIME
+          value: "0 0 * * *"
         - name: MAX_BACKUPS
-          value: "15"
-        - name: MONGODB_USER
-          value: "admin"
-        - name: MONGODB_PASS
-          value: "E0P2O1m-JaAn2AMranJY-9CRSkq9ocfzVHMkdKD"
-        - name: MONGODB_HOST
-          value: "mongo-0.mongo-headless.z-site.svc.cluster.local"
-        - name: MONGODB_PORT
-          value: "27017"
+          value: "5"
+        - name: INIT_BACKUP
+          value: "yes"
+        - name: MONGO_URI
+          value: "mongodb://admin:E0P2O1m-JaAn2AMranJY-9CRSkq9ocfzVHMkdKD@mongo-0.mongo-headless.z-site.svc.cluster.local:27017,mongo-1.mongo-headless.z-site.svc.cluster.local:27017,mongo-2.mongo-headless.z-site.svc.cluster.local:27017/zemuldo-site?replicaSet=zemuldo"
         volumeMounts:
             - name: mongo-backup
               mountPath: /backup
       volumes:
         - name: mongo-backup
-          persistentVolumeClaim:
-            claimName: mongo-backup-pvc
----
-
-apiVersion: v1
-kind: ReplicationController
-metadata:
-  labels:
-    name: mongo-backup-secondary
-  name: mongo-backup-secondary
-  namespace: z-site
-spec:
-  replicas: 1
-  template:
-    metadata:
-      labels:
-        name: mongo-backup-secondary
-    spec:
-      containers:
-      - image: tutum/mongodb-backup
-        name: mongodb-backup
-        ports:
-        - name: mongo
-          containerPort: 27017
-          hostPort: 27017
-        env:
-        - name: MAX_BACKUPS
-          value: "15"
-        - name: MONGODB_USER
-          value: "admin"
-        - name: MONGODB_PASS
-          value: "E0P2O1m-JaAn2AMranJY-9CRSkq9ocfzVHMkdKD"
-        - name: MONGODB_HOST
-          value: "mongo-0.mongo-headless.z-site.svc.cluster.local"
-        - name: MONGODB_PORT
-          value: "27017"
-        volumeMounts:
-            - name: mongo-backup
-              mountPath: /backup
-      volumes:
-        - name: mongo-backup
-          persistentVolumeClaim:
-            claimName: mongo-secondary-backup-pvc
+          nfs:
+            server: 209.97.137.61
+            path: /mnt/mongo-backup
 ---

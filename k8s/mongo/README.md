@@ -1,7 +1,7 @@
 Step #1 - Get into a MongoDB pod
 
 ```shell
-kubectl exec -it mongo-0 mongo
+kubectl exec -it mongo-0 mongo -n z-site
 ```
 
 Step #2 - Use admin db
@@ -62,11 +62,8 @@ user:'admin', pwd:'E0P2O1m-JaAn2AMranJY-9CRSkq9ocfzVHMkdKD', roles : [{role:'dbA
 });
 ```
 
-Step #6 - Delete Stateful set.
+Step #6 - Connection URL
 
 ```shell
-kubectl delete statefulset mongo
+mongo "mongodb://admin:E0P2O1m-JaAn2AMranJY-9CRSkq9ocfzVHMkdKD@mongo-0.mongo-headless.z-site.svc.cluster.local:27017,mongo-1.mongo-headless.z-site.svc.cluster.local:27017,mongo-2.mongo-headless.z-site.svc.cluster.local:27017/zemuldo-site?replicaSet=zemuldo"
 ```
-
-Step 7
-Add auth flag to MongoDB and create stateful set again.
