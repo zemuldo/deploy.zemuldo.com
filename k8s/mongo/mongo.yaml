@@ -6,7 +6,6 @@ metadata:
   labels:
     name: mongo-headless
 spec:
-  type: LoadBalancer
   ports:
   - port: 27017
     targetPort: 27017
