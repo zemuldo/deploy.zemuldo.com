@@ -86,7 +86,7 @@ spec:
         - name: MONGODB_PASS
           value: "E0P2O1m-JaAn2AMranJY-9CRSkq9ocfzVHMkdKD"
         - name: MONGODB_HOST
-          value: "mongo-0.mongo-headless.default.svc.cluster.local"
+          value: "mongo-0.mongo-headless.z-site.svc.cluster.local"
         - name: MONGODB_PORT
           value: "27017"
         volumeMounts:
@@ -127,7 +127,7 @@ spec:
         - name: MONGODB_PASS
           value: "E0P2O1m-JaAn2AMranJY-9CRSkq9ocfzVHMkdKD"
         - name: MONGODB_HOST
-          value: "mongo-0.mongo-headless.default.svc.cluster.local"
+          value: "mongo-0.mongo-headless.z-site.svc.cluster.local"
         - name: MONGODB_PORT
           value: "27017"
         volumeMounts:
