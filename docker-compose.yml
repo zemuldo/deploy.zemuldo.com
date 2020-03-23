@@ -12,7 +12,7 @@ services:
       - PGID=1000
       - TZ=Africa/Nairobi
       - URL=zemuldo.com
-      - SUBDOMAINS=www,cloud-nomad,gateway,api
+      - SUBDOMAINS=www,api
       - VALIDATION=http
       - STAGING=false
       - EMAIL=otis.eng.555@gmail.com
@@ -53,11 +53,3 @@ services:
     image: zemuldo/site-api
     labels:
       - com.centurylinklabs.watchtower.enable=true
-
-  watchtower:
-    image: v2tec/watchtower
-    command: --cleanup
-    volumes:
-      - /var/run/docker.sock:/var/run/docker.sock
-      - ~/.docker/config.json:/config.json
-    restart: always
